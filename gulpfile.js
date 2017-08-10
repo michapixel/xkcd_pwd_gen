@@ -50,7 +50,7 @@ const config = {
     }
   },
   css : {
-    src: srcDir + '/scss/**/*.scss',
+    src: srcDir + '/_scss/**/*.scss',
     dest: destDir + '/css',
     options: {
       outputStyle: 'compressed',
@@ -88,8 +88,8 @@ const config = {
     dest: destDir + '/data'
   },
     vendor: {
-        src: srcDir + '/vendor/js/**/*.{js,css}',
-        dest: destDir + '/vendor/js',
+        src: srcDir + '/vendor/**/*.{js,css}',
+        dest: destDir + '/vendor',
     }
 };
 // 
@@ -118,7 +118,7 @@ gulp.task('clean', function(done){
 });
 // 
 gulp.task('create', function(done){
-  gulp.series('html', 'libs', 'js', 'scss', 'images', 'data', function(done) {
+  gulp.series('html', 'js', 'vendor', 'scss', 'images', 'etc', function(done) {
     trace('create finished ...')
     done();
   })();
@@ -146,10 +146,9 @@ gulp.task('js', function(cb) {
     .pipe(livereload())
     ;
 });
-gulp.task('libs', function(cb) {
-  return gulp.src(config.js.libs.srcs)
-    .pipe(concat('libs.js'))
-    .pipe(gulp.dest(config.js.libs.dest))
+gulp.task('vendor', function(cb) {
+  return gulp.src(config.vendor.src)
+    .pipe(gulp.dest(config.vendor.dest))
     ;
 });
 // 
@@ -183,7 +182,7 @@ gulp.task('watch', function(){
   livereload.listen({ basePath: './dist' });
   gulp.watch(config.img.src, gulp.parallel('images'));
   gulp.watch(config.css.src, gulp.parallel('scss'));
-  gulp.watch(config.js.libs.srcs, gulp.parallel('libs'));
+  gulp.watch(config.vendor.src, gulp.parallel('vendor'));
   gulp.watch(config.js.src, gulp.parallel('js'));
   gulp.watch(config.html.src, gulp.parallel('html'));
   gulp.watch(config.etc.src, gulp.parallel('etc'));
