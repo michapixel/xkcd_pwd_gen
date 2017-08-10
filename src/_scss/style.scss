@@ -17,16 +17,21 @@ header, main, footer {
 	text-align: left;
 	padding: 0 0.2rem;
 }
+
+
 h1 {
 	font-weight: 900;
 	text-transform: uppercase;
+	padding-left: 1.5rem;
 }
-/*.form.button {
-	margin-top: 2rem;
-}*/
+
 
 form .row {
 	padding-bottom: 1rem;
+}
+fieldset {
+	border-radius: 4px;
+	border: 1px solid #D2C5C5;
 }
 
 .explanation {

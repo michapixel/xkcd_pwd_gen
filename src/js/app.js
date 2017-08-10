@@ -36,11 +36,32 @@ document.addEventListener('DOMContentLoaded', function() {
 	      var w = wordlist[lang][variant][getRandomInt(0, wordlist[lang][variant].length-1)];
 	      pw.push(w);
 	   }
-	   document.getElementById( 'result' ).value = pw.join( ' ' ).toLowerCase();
+	   var field = document.getElementById( 'result' );
+	   field.value = pw.join( ' ' ).toLowerCase();
+	   field.focus();
+	   field.setSelectionRange(0, field.value.length);
+	   // field.scrollIntoView();
+	   try {
+			document.execCommand('copy');
+		} catch (err) {
+			console.log('Oops, unable to copy');
+		}
 	};
 
-	console.log(location)
-	if( location.host === 'localhost' ) {
-		document.write('<script src="http://localhost:35729/livereload.js?snipver=1"></script>');
+	function init() {
+		document.getElementById( 'result' ).value = '';
+
+		document.getElementById('Generate').onclick = function(e){
+	  		pwgen();
+		};
+
 	}
+
+	if( location.host === 'localhost' ) {
+		var livereload = document.createElement('script');
+		livereload.setAttribute('src','http://localhost:35729/livereload.js?snipver=1');
+		document.head.appendChild(livereload);
+	}
+
+	init();
 });
