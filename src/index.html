@@ -15,7 +15,7 @@
 	<main class="container">
 		<section>
 			
-				<form>
+				<form id="Generator">
 					<fieldset>
 						<div class="row">
 							<div class="column">
@@ -26,16 +26,42 @@
 						<div class="row">
 							<div class="column">
 								<label for="opt_lang">Options</label>
-								<select id="opt_lang" disabled title="currently only german">
-									<option value="de">german</option>
-								</select>
+								<div class="caret">
+									<select id="opt_lang" disabled title="currently only german">
+										<option value="de">german</option>
+									</select>
+								</div>
 							</div>
 							<div class="column">
 								<label for="opt_variant">Variant</label>
-								<select id="opt_variant">
-									<option value="short" selected>short (~3700 words >=4 length)</option>
-									<option value="short">long (10000 words >=2 length)</option>
-								</select>
+								
+								<div class="caret">
+									<select id="opt_variant">
+										<option value="short" selected>short (~3700 words >=4 length)</option>
+										<option value="short">long (10000 words >=2 length)</option>
+									</select>
+								</div>
+							</div>
+							<div class="column">
+								<label for="opt_length">Length</label>
+								<div class="caret">
+									<select id="opt_length">
+										<option value="4">4 words</option>
+										<option value="6" selected>6 words</option>
+										<option value="8">8 words</option>
+									</select>
+								</div>
+							</div>
+							<div class="column">
+								<label>Multiplier</label>
+								<input type="checkbox" id="special_chars" >
+								<label for="special_chars"><span>special character ("#*?" etc.)</span></label>
+
+								<input type="checkbox" id="special_numbers" >
+								<label for="special_numbers"><span>Numbers (random)</span></label>
+
+								<input type="checkbox" id="special_camelcase" >
+								<label for="special_camelcase"><span>CamelCase (random)</span></label>
 							</div>
 						</div>
 						<!--  -->
@@ -50,13 +76,23 @@
 		<section>
 			<h2>Explanation</h2>
 			<div class="explanation">
-				<h3>as comic</h3>
-				<div class="strip xkcd">
-					<img src="https://imgs.xkcd.com/comics/password_strength.png" alt="">
+				<h3>as comic:</h3>
+				<div class="lightbox">
+					<div id="xkcd" class="strip">
+						<a href="#" class="close">&times;</a>
+						<img src="https://imgs.xkcd.com/comics/password_strength.png" alt="">
+						<a class="zoom" href="#xkcd"></a>
+					</div>
 				</div>
-				<h3>as video (german language)</h3>
-				<div class="video">
-					<iframe src="https://www.youtube.com/embed/jtFc6B5lmIM" seamless allowfullscreen ></iframe>
+				<h3>as video (german language):</h3>
+				<div class="video_box">
+					<div class="placeholder" data-src="https://www.youtube.com/embed/jtFc6B5lmIM">
+						<img src="img/video_preview.jpg" alt="" class="poster">
+						<span class="btn"></span>
+					</div>
+					<div class="video">
+						<iframe src="" seamless allowfullscreen ></iframe>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -79,6 +115,13 @@
       <!-- ########## -->
 		<!-- <script src="vendor/js/random/lib/random.min.js" type="text/javascript"></script> -->
 		<script src="js/app.js"></script>
+		<script>
+		if( location.host === 'localhost' ) {
+			var livereload = document.createElement('script');
+			livereload.setAttribute('src','http://localhost:35729/livereload.js?snipver=1');
+			document.head.appendChild(livereload);
+		}
+		</script>
 	</footer>
 </body>
 </html>
