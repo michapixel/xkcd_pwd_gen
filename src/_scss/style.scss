@@ -7,17 +7,20 @@ body {
 	line-height: 1.6;
 	text-align: center;
 }
-
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
 main {
 	display: block;
+	margin-bottom: 2rem;
 }
 header, main, footer {
-	margin: 0 auto;
+	margin: 0 auto ;
 	max-width: 80rem;
 	text-align: left;
 	padding: 0 0.2rem;
 }
-
+.hidden {
+	display: none;
+}
 
 h1 {
 	font-weight: 900;
@@ -29,7 +32,7 @@ $grey : #D2C5C5;
 $dark_grey : #494949;
 $red: #CC181E;
 form {
-		.row {
+	.row {
 		padding-bottom: 1rem;
 	}
 
@@ -85,8 +88,7 @@ form {
 			border: 1px solid purple;
 		}
 		border-radius: 4px;
-		overflow: hidden;
-		background: #fafafa url("img/icon-select.png") no-repeat 90% 50%;
+		// overflow: hidden;
 		&:before {
 			position: absolute;
 			display: block;
@@ -145,6 +147,7 @@ form {
 			font-weight: 900;
 			opacity: 0.001;
 			cursor: zoom-out;
+			transition: all 0.35s ease-in;
 		}
 		a.zoom {
 			position: absolute;
@@ -176,7 +179,27 @@ form {
 	.video_box {
 		position: relative;
 		max-width: 50%;
-		// border: 1px dashed red;
+		transition: all 0.35s ease-in;
+		.close {
+			transition: all 0.35s ease-in;
+			position: absolute;
+			right: -5px;
+			top: -5px;
+			width: 26px;
+			height: 26px;
+			font-size: 2rem;
+			z-index: 2;
+			color: red;
+			font-weight: 900;
+			opacity: 0.001;
+			cursor: zoom-out;
+		}
+		&.active {
+			max-width: 100%;
+			.close {
+				opacity: 1;
+			}
+		}
 	  	&:hover + .btn {
 	  		background: $red;
 	  		opacity: 1;
@@ -192,7 +215,7 @@ form {
 		  		opacity: 1;
 		  	}
 		}
-		.btn {
+		.play_btn {
 			position: absolute !important;
 			z-index: 1;
 			background: $dark_grey;
