@@ -32,10 +32,10 @@ const config = {
         src: srcDir + '/js/**/*.js',
         dest: destDir + '/js',
         options: {
-            compress: true,
-            mangle: true,
+            compress: false,
+            mangle: false,
             output: {
-                beautify: false,
+                beautify: true,
                 comments: false,
                 quote_style: 3,
                 // semicolons: false,
@@ -54,6 +54,7 @@ const config = {
         src: srcDir + '/_scss/**/*.scss',
         dest: destDir + '/css',
         options: {
+            includePaths: 'imports',
             outputStyle: 'compressed',
             sourceComments: false,
         }

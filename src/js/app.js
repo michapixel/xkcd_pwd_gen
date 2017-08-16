@@ -1,5 +1,4 @@
 'use srict';
-
 document.addEventListener('DOMContentLoaded', function() {
 	var lang = 'de';
 	var variant = 'short';
@@ -63,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 	function pwgen() {
-	   var pw = [];
+	   var wl = [];
 	   // 
 	   var words = document.getElementById('opt_length').value;
 	   // 
@@ -74,19 +73,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	   for ( var i = 0; i < words; i++ ) {
 	   	// pick random word:
 	      var w = wordlist[lang][variant][getRandomInt(0, wordlist[lang][variant].length-1)];
-	      pw.push(w);
+	      wl.push(w);
 	   }
-	   var field = document.getElementById( 'result' );
-	   field.value = pw.join( ' ' ).toLowerCase();
+
+	   var field = document.getElementById( 'passphrase' );
+	   field.value = wl.join( ' ' ).toLowerCase();
 	   field.focus();
 	   field.setSelectionRange(0, field.value.length);
-	   // field.scrollIntoView();
+	   
 	   try {
 			document.execCommand('copy');
 		} catch (err) {
 			console.log('Oops, unable to copy');
 		}
+
 	};
+
 
 	function init() {
 
@@ -98,21 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		document.querySelectorAll( 'form' )[0].reset();
 
-		document.getElementById('Generate').onclick = function(e){
+		document.getElementById('generate').onclick = function(e){
 	  		pwgen();
 		};
 
-		/*document.getElementsByClassName('video_box')[0].addEventListener('click', function(e){
-			var el = e.target; // placeholder
-			addClass(el.parentNode, 'active');
-			var src = el.getAttribute('data-src') + '/?&autoplay=1';
-			el.style.display = 'none';
-			var iframe = el.parentNode.getElementsByTagName('iframe')[0];
-			iframe.onload = function(ev) {
-				// iframe.click()
-			};
-			iframe.setAttribute('src', src);
-		});*/
 		live('.video_box .placeholder', 'click', function(ev){
 			addClass(this.parentNode, 'active');
 			var src = this.getAttribute('data-src') + '/?&autoplay=1';
@@ -144,6 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// 'content' : null,
 			'callback' : null
   		});
+
 
 		if( location.host === 'localhost' ) {
 			var livereload = document.createElement('script');

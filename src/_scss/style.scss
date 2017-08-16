@@ -1,18 +1,58 @@
+
+
+$grey : #D2C5C5;
+$dark_grey : #494949;
+$red: #CC181E;
+$purple: #800080;
+
+
 body {
-	color: #606c76;
 	font-family: 'Roboto', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+	color: #606c76;
 	font-size: 1.6em;
 	font-weight: 300;
 	letter-spacing: .01em;
 	line-height: 1.6;
 	text-align: center;
+	overflow-x: hidden;
 }
-.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+.github-corner {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 80px;
+	height: 80px;
+	z-index: 1;
+}
+.github-corner:hover .octo-arm{
+	animation:octocat-wave 560ms ease-in-out;
+}
+@keyframes octocat-wave{
+	0%,100%{
+		transform:rotate(0);
+	}
+	20%,60%{
+		transform:rotate(-25deg);
+	}
+	40%,80%{transform:rotate(10deg);
+	}
+}
+@media (max-width:500px){
+	.github-corner:hover .octo-arm{
+		animation:none;
+	}
+	.github-corner .octo-arm{
+		animation:octocat-wave 560ms ease-in-out;
+	}
+}
+
+
 main {
-	display: block;
-	margin-bottom: 2rem;
+	display: block; // ie
+	// margin-bottom: 2rem;
 }
 header, main, footer {
+	position: relative;
 	margin: 0 auto ;
 	max-width: 80rem;
 	text-align: left;
@@ -21,16 +61,18 @@ header, main, footer {
 .hidden {
 	display: none;
 }
-
+.button {
+	background: $purple;
+	font-size: 1.4rem;
+	font-family: 'Roboto';
+}
 h1 {
 	font-weight: 900;
 	text-transform: uppercase;
 	padding-left: 1.5rem;
+	color: $purple;
+	opacity: 0.7;
 }
-
-$grey : #D2C5C5;
-$dark_grey : #494949;
-$red: #CC181E;
 form {
 	.row {
 		padding-bottom: 1rem;
@@ -43,6 +85,26 @@ form {
 
 	#opt_variant {
 		font-size: 1.2rem;
+	}
+	#results {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		appearance: none;
+		background-color: transparent;
+		border: 0.1rem solid #d1d1d1;
+		border-top-color: rgb(209, 209, 209);
+		border-right-color: rgb(209, 209, 209);
+		border-bottom-color: rgb(209, 209, 209);
+		border-left-color: rgb(209, 209, 209);
+		border-radius: .4rem;
+		box-shadow: none;
+		box-sizing: inherit;
+		height: 3.8rem;
+		padding: .6rem 1.0rem;
+		width: 100%;
+		// border-color: #9b4dca;
+		outline: 0;
+
 	}
 	input[type=checkbox] {
 		position: absolute;
@@ -62,7 +124,7 @@ form {
 		}
 		&:hover {
 			&+label:before {
-				border: 1px solid purple;
+				border: 1px solid $purple;
 			}
 		}
 		&+label:before {
@@ -73,7 +135,7 @@ form {
 			cursor: pointer;
 			height: 2rem;
 			margin-right: 0.7rem;
-			color: purple;
+			color: $purple;
 			z-index: 1;
 			border-radius: 4px;
 			padding: 0 0.2rem;
@@ -85,7 +147,7 @@ form {
 		position: relative;
 		border: 1px solid $grey;
 		&:focus, &:hover {
-			border: 1px solid purple;
+			border: 1px solid $purple;
 		}
 		border-radius: 4px;
 		// overflow: hidden;

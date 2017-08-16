@@ -1,1 +1,108 @@
-'use srict';document.addEventListener('DOMContentLoaded',function(){function e(e,t){return e.classList?e.classList.contains(t):new RegExp('\\b'+t+'\\b').test(e.className)}function t(t,n){t.classList?t.classList.add(n):e(t,n)||(t.className+=' '+n)}function n(e,t){e.classList?e.classList.remove(t):e.className=e.className.replace(new RegExp('\\b'+t+'\\b','g'),'')}function o(e,t){return e=Math.ceil(e),t=Math.floor(t),Math.floor(Math.random()*(t-e+1))+e}function a(e,t,n){e.attachEvent?e.attachEvent('on'+t,n):e.addEventListener(t,n)}function c(e,t,n,o){a(o||document,t,function(t){var a=(o||document).querySelectorAll(e);if(a){for(var c=t.target||t.srcElement,l=-1;c&&-1===(l=Array.prototype.indexOf.call(a,c));)c=c.parentElement;l>-1&&n.call(c,t)}})}function l(e,t){var n=new XMLHttpRequest;n.overrideMimeType('application/json'),n.open('GET',e,!0),n.onreadystatechange=function(){4==n.readyState&&'200'==n.status&&t(n.responseText)},n.send(null)}function r(){for(var e=[],t=document.getElementById('opt_length').value,n=(document.querySelectorAll('#special_chars')[0].checked,document.querySelectorAll('#special_numbers')[0].checked,document.querySelectorAll('#special_camelcase')[0].checked,0);n<t;n++){var a=u[s][i][o(0,u[s][i].length-1)];e.push(a)}var c=document.getElementById('result');c.value=e.join(' ').toLowerCase(),c.focus(),c.setSelectionRange(0,c.value.length);try{document.execCommand('copy')}catch(e){console.log('Oops, unable to copy')}}var s='de',i='short',u=[];document.getElementById('opt_length').value;!function(){l('data/wordlist.json',function(e){u=JSON.parse(e)}),document.querySelectorAll('form')[0].reset(),document.getElementById('Generate').onclick=function(e){r()},c('.video_box .placeholder','click',function(e){t(this.parentNode,'active');var n=this.getAttribute('data-src')+'/?&autoplay=1';t(this,'hidden');var o=this.parentNode.getElementsByTagName('iframe')[0];o.onload=function(e){},o.setAttribute('src',n)}),c('.video_box .close','click',function(e){e.preventDefault(),e.stopPropagation(),n(this.parentNode,'active'),n(document.querySelectorAll('.video_box .placeholder')[0],'hidden'),this.parentNode.getElementsByTagName('iframe')[0].setAttribute('src','')});new Drooltip({element:'.tooltip',trigger:'hover',background:'purple',color:'#fff',animation:'material',callback:null});if('localhost'===location.host){var e=document.createElement('script');e.setAttribute('src','http://localhost:35729/livereload.js?snipver=1'),document.head.appendChild(e)}}()});
+'use srict';
+
+document.addEventListener('DOMContentLoaded', function() {
+    var lang = 'de';
+    var variant = 'short';
+    var wordlist = [];
+    var pw_strength = document.getElementById('opt_length').value;
+    function trace(o) {
+        console.log(o);
+    }
+    function hasClass(el, className) {
+        return el.classList ? el.classList.contains(className) : new RegExp('\\b' + className + '\\b').test(el.className);
+    }
+    function addClass(el, className) {
+        if (el.classList) el.classList.add(className); else if (!hasClass(el, className)) el.className += ' ' + className;
+    }
+    function removeClass(el, className) {
+        if (el.classList) el.classList.remove(className); else el.className = el.className.replace(new RegExp('\\b' + className + '\\b', 'g'), '');
+    }
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function addEvent(el, type, handler) {
+        if (el.attachEvent) el.attachEvent('on' + type, handler); else el.addEventListener(type, handler);
+    }
+    function live(selector, event, callback, context) {
+        addEvent(context || document, event, function(e) {
+            var qs = (context || document).querySelectorAll(selector);
+            if (qs) {
+                var el = e.target || e.srcElement, index = -1;
+                while (el && (index = Array.prototype.indexOf.call(qs, el)) === -1) el = el.parentElement;
+                if (index > -1) callback.call(el, e);
+            }
+        });
+    }
+    function loadJSON(file, callback) {
+        var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType('application/json');
+        xobj.open('GET', file, true);
+        xobj.onreadystatechange = function() {
+            if (xobj.readyState == 4 && xobj.status == '200') {
+                callback(xobj.responseText);
+            }
+        };
+        xobj.send(null);
+    }
+    function pwgen() {
+        var wl = [];
+        var words = document.getElementById('opt_length').value;
+        var chars = document.querySelectorAll('#special_chars')[0].checked;
+        var numbers = document.querySelectorAll('#special_numbers')[0].checked;
+        var camels = document.querySelectorAll('#special_camelcase')[0].checked;
+        for (var i = 0; i < words; i++) {
+            var w = wordlist[lang][variant][getRandomInt(0, wordlist[lang][variant].length - 1)];
+            wl.push(w);
+        }
+        var field = document.getElementById('passphrase');
+        field.value = wl.join(' ').toLowerCase();
+        field.focus();
+        field.setSelectionRange(0, field.value.length);
+        try {
+            document.execCommand('copy');
+        } catch (err) {
+            console.log('Oops, unable to copy');
+        }
+    }
+    function init() {
+        loadJSON('data/wordlist.json', function(response) {
+            wordlist = JSON.parse(response);
+        });
+        document.querySelectorAll('form')[0].reset();
+        document.getElementById('generate').onclick = function(e) {
+            pwgen();
+        };
+        live('.video_box .placeholder', 'click', function(ev) {
+            addClass(this.parentNode, 'active');
+            var src = this.getAttribute('data-src') + '/?&autoplay=1';
+            addClass(this, 'hidden');
+            var iframe = this.parentNode.getElementsByTagName('iframe')[0];
+            iframe.onload = function(ev) {};
+            iframe.setAttribute('src', src);
+        });
+        live('.video_box .close', 'click', function(ev) {
+            ev.preventDefault();
+            ev.stopPropagation();
+            removeClass(this.parentNode, 'active');
+            removeClass(document.querySelectorAll('.video_box .placeholder')[0], 'hidden');
+            var iframe = this.parentNode.getElementsByTagName('iframe')[0];
+            iframe.setAttribute('src', '');
+        });
+        var tooltip = new Drooltip({
+            element: '.tooltip',
+            trigger: 'hover',
+            background: 'purple',
+            color: '#fff',
+            animation: 'material',
+            callback: null
+        });
+        if (location.host === 'localhost') {
+            var livereload = document.createElement('script');
+            livereload.setAttribute('src', 'http://localhost:35729/livereload.js?snipver=1');
+            document.head.appendChild(livereload);
+        }
+    }
+    init();
+});
